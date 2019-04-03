@@ -143,7 +143,7 @@ console.log(`After being punched ${myVillain.name} has: ${myVillain.healthPoints
 console.log("***************************  End of Stretch Task *****************************")
 
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -206,7 +206,7 @@ console.log("***************************  End of Stretch Task ******************
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
