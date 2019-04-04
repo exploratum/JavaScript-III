@@ -41,7 +41,109 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+////////////////////////  GameObject Constructor and prototype////////////////////
+function GameObject(obj) {
+  this.createdAt = obj.createdAt;
+  this.name = obj.name;
+  this.dimensions = obj.dimensions;
+  
+}
+GameObject.prototype.destroy = function() {return `${this.name} was removed from the game.`}
+
+////////////////////////  CharacterStat Constructor and prototype////////////////////
+function CharacterStats (obj) {
+  GameObject.call(this, obj);
+  this.healthPoints = obj.healthPoints;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {return `${this.name} took damage`};
+
+////////////////////////  Humanoid Constructor and prototype////////////////////
+function Humanoid(obj) {
+  CharacterStats.call(this, obj);
+  this.team = obj.team;
+  this.weapons = obj.weapons;
+  this.language = obj.language;
+}
+
+Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in ${this.language}`;};
+
+
+
+console.log("***************************  Stretch Task *****************************")
+
+function Hero(obj) {
+  Humanoid.call(this, obj);
+}
+Hero.prototype = Object.create(GameObject.prototype);
+Hero.prototype = Object.create(CharacterStats.prototype);
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.punch = function() {
+  this.healthPoints -= 10;
+  if(this.healthPoints <= 0) {console.log(this.destroy())};
+}
+
+function Villain(obj) {
+  Humanoid.call(this, obj);
+}
+Villain.prototype = Object.create(GameObject.prototype);
+Villain.prototype = Object.create(CharacterStats.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.kick = function() {
+  this.healthPoints --;
+  if(this.healthPoints <= 0) {console.log(this.destroy())};
+}
+
+
+myHero = new Hero({
+  createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 20,
+    name: 'Hulk',
+    team: 'Round Table',
+    weapons: [
+      'the green fist',
+    ],
+    language: 'Common Tongue',
+})
+
+myVillain = new Villain({
+  createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 7,
+    name: "Tom(Tom&Jerry)",
+    team: 'Square Table',
+    weapons: [
+      'the dazzling paw',
+    ],
+    language: 'Common Tongue',
+})
+
+console.log(`${myHero.name} has: ${myHero.healthPoints} healthpoints`)
+myVillain.kick.call(myHero);
+console.log(`After being kicked ${myHero.name} has: ${myHero.healthPoints} healthpoints`)
+
+console.log("Hulk retaliates")
+console.log(`${myVillain.name} has: ${myVillain.healthPoints} healthpoints`)
+myHero.punch.call(myVillain);
+console.log(`After being punched ${myVillain.name} has: ${myVillain.healthPoints} healthpoints`)
+
+
+console.log("***************************  End of Stretch Task *****************************")
+
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +194,8 @@
     language: 'Elvish',
   });
 
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +206,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
